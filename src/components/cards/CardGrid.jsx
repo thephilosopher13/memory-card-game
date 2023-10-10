@@ -37,9 +37,20 @@ function CardGrid({ numbersArray, onClick, clickedCards }){
           setLoading(false); 
         });
     }, [numbersArray]); 
+    
+    let gridClass = 'grid-cols-3';
+    if (numbersArray.length > 12) {
+      gridClass = 'grid-cols-4';
+    }
+    if (numbersArray.length > 20) {
+      gridClass = 'grid-cols-5';
+    }
+    if (numbersArray.length > 30) {
+      gridClass = 'grid-cols-6';
+    }
   
     return (
-      <div>
+      <div className={`grid ${gridClass}`}>
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
