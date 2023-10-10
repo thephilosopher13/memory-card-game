@@ -1,22 +1,19 @@
 import CardGrid from "../cards/CardGrid";
+import PropTypes from 'prop-types'
 import { useState } from 'react';
 
-function Gameboard() {
+function Gameboard({score, bestScore, onScoreChange}) {
     const [numCards, setNumCards] = useState(0);
     const [numbersArray, setNumbersArray] = useState([]);
     const [isReady, setIsReady] = useState(false);
     const [clickedCards, setClickedCards] = useState({});
-    const [score, setScore] = useState(0)
-    const [bestScore, setBestScore] = useState(0)
+
     const [gameOver, setGameOver] = useState(false);
 
     const incrementScore = () => {
-        const updatedScore = score + 1;
-        if (updatedScore > bestScore) {
-            setBestScore(updatedScore);
-          }
-          setScore(updatedScore);
-      };
+      const updatedScore = score + 1;
+      onScoreChange(updatedScore);
+    };
     
 
     function generateRandomNumbers(count) {
@@ -74,7 +71,7 @@ function Gameboard() {
       const handleRestartGame = () => {
         // Reset the game state when restarting
         setClickedCards({});
-        setScore(0);
+        onScoreChange(0);
         setIsReady(false);
         setGameOver(false);
     };
@@ -84,16 +81,14 @@ function Gameboard() {
       return (
         <div>
             {gameOver ? (
-                <div>
+                <div className='mt-5'>
                     <h1 className="text-4xl font-bold">Game Over!</h1>
-                    <p className="text-4xl font-bold mt-4">Best Score: {bestScore}</p>
                     <button className="text-2xl bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 border-b-4 border-slate-700 hover:border-slate-500 rounded mt-4 self-center" onClick={handleRestartGame}>Return to Title Screen</button>
                 </div>
             ) : (
                 
                 isReady ? (
-                    <div>
-                      <p className="text-4xl font-bold">Current Score: {score} Best Score: {bestScore}</p>
+                    <div className='mt-5'>
                       <CardGrid
                         numbersArray={numbersArray}
                         onClick={handleCardClick}
@@ -121,3 +116,9 @@ function Gameboard() {
 }
 
 export default Gameboard
+
+Gameboard.propTypes = {
+  score: PropTypes.number.isRequired,
+  bestScore: PropTypes.number.isRequired,
+  onScoreChange: PropTypes.func.isRequired
+};
