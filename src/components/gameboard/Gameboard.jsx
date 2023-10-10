@@ -85,16 +85,15 @@ function Gameboard() {
         <div>
             {gameOver ? (
                 <div>
-                    <h1>Game Over!</h1>
-                    <p>Best Score: {bestScore}</p>
-                    <button onClick={handleRestartGame}>Return to Title Screen</button>
+                    <h1 className="text-4xl font-bold">Game Over!</h1>
+                    <p className="text-4xl font-bold mt-4">Best Score: {bestScore}</p>
+                    <button className="text-2xl bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 border-b-4 border-slate-700 hover:border-slate-500 rounded mt-4 self-center" onClick={handleRestartGame}>Return to Title Screen</button>
                 </div>
             ) : (
                 
                 isReady ? (
                     <div>
-                      <p>Current Score: {score}</p>
-                      <p>Best Score: {bestScore}</p>
+                      <p className="text-4xl font-bold">Current Score: {score} Best Score: {bestScore}</p>
                       <CardGrid
                         numbersArray={numbersArray}
                         onClick={handleCardClick}
@@ -102,17 +101,18 @@ function Gameboard() {
                       />
                     </div>
                 ) : (
-                    <div>
-                        <label htmlFor="numCards">Number of Cards:</label>
+                    <div className="flex flex-col align-items-center">
+                        <label className="mt-4 text-3xl" htmlFor="numCards">Number of Cards:</label>
                         <input
                             type="number"
                             id="numCards"
+                            className='self-center mt-4 text-2xl'
                             value={numCards}
                             onChange={handleNumCardsChange}
                             min={1}
                             max={36} // Adjust the maximum as needed
                         />
-                        <button onClick={handleSubmit}>Submit</button>
+                        <button className="text-2xl bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 border-b-4 border-slate-700 hover:border-slate-500 rounded mt-4 self-center" onClick={handleSubmit}>Submit</button>
                     </div>
                 )
             )}

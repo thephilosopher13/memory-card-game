@@ -38,25 +38,25 @@ function CardGrid({ numbersArray, onClick, clickedCards }){
         });
     }, [numbersArray]); 
     
-    let gridClass = 'grid-cols-3';
-    if (numbersArray.length > 12) {
-      gridClass = 'grid-cols-4';
+    let gridClass = 'grid-cols-3 grid-rows-3';
+    if (numbersArray.length > 9 && numbersArray.length < 16) {
+      gridClass = 'grid-cols-4 grid-rows-4';
     }
-    if (numbersArray.length > 20) {
-      gridClass = 'grid-cols-5';
+    if (numbersArray.length >= 16 && numbersArray.length < 25) {
+      gridClass = 'grid-cols-5 grid-rows-5' ;
     }
-    if (numbersArray.length > 30) {
-      gridClass = 'grid-cols-6';
+    if (numbersArray.length >= 25 ) {
+      gridClass = 'grid-cols-6 grid-rows-6';
     }
   
     return (
-      <div className={`grid ${gridClass}`}>
+      <div>
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
           <div>Error: {error.message}</div>
         ) : (
-          <div>
+          <div className={`grid gap-2 grid-flow-row ${gridClass}`}>
             {pokemonData.map((pokemon, index) => (
               <Card
                 key={index}
